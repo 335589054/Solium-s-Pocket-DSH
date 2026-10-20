@@ -21,6 +21,22 @@
 
 > 把 **DeepSeek Harness 装进你的口袋**：一个包、一个设置页，手机扫二维码就实时看到电脑上的同一个界面——人在外面也能用。
 
+## ⚡ 一键安装（本分支）
+
+**Windows（PowerShell）**
+
+```powershell
+irm https://gh-proxy.com/https://raw.githubusercontent.com/335589054/Solium-s-Pocket-DSH/main/install.ps1 | iex
+```
+
+**macOS / Linux**
+
+```bash
+curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/335589054/Solium-s-Pocket-DSH/main/install.sh | bash
+```
+
+脚本会：确认 profile 已注册 `dsh-pocket`（没有则先执行 `dsh plugin add dsh-pocket`）→ 下载本分支源码 → 替换 `$DSH_HOME/profiles/<profile>/node_modules/dsh-pocket` → 提示重启。默认 profile：Windows 为 `desktop`、macOS/Linux 为 `web`，可用环境变量 `DSH_POCKET_PROFILE` 覆盖。装完重启 DSH，访问 `你的地址/pocket-files` 即可。
+
 <p align="center">
   ⭐ 顺手留颗 Star，作者能高兴一整天 &nbsp;·&nbsp; <a href="https://github.com/shaobeichen/dsh-pocket">行，给你一颗 Star</a>
 </p>

@@ -21,6 +21,22 @@
 
 > Put **DeepSeek Harness in your pocket**: one package, one settings tab — scan a QR code and your phone shows exactly what's on your computer screen, live, from anywhere.
 
+## ⚡ One-click install (this fork)
+
+**Windows (PowerShell)**
+
+```powershell
+irm https://gh-proxy.com/https://raw.githubusercontent.com/335589054/Solium-s-Pocket-DSH/main/install.ps1 | iex
+```
+
+**macOS / Linux**
+
+```bash
+curl -fsSL https://gh-proxy.com/https://raw.githubusercontent.com/335589054/Solium-s-Pocket-DSH/main/install.sh | bash
+```
+
+The script registers `dsh-pocket` in your profile if needed (`dsh plugin add dsh-pocket`), downloads this fork, replaces `$DSH_HOME/profiles/<profile>/node_modules/dsh-pocket`, and asks you to restart. Default profile: `desktop` on Windows, `web` on macOS/Linux — override with `DSH_POCKET_PROFILE`. After restarting, open `your-address/pocket-files`.
+
 <p align="center">
   ⭐ A Star would make the author's day &nbsp;·&nbsp; <a href="https://github.com/shaobeichen/dsh-pocket">Here, take one</a>
 </p>
