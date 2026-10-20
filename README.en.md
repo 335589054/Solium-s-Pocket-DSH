@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.jpg" alt="DSH Pocket" width="100%">
+  <img src="https://raw.githubusercontent.com/shaobeichen/dsh-pocket/main/docs/banner.jpg" alt="DSH Pocket" width="100%">
 </p>
 
 <h1 align="center">DSH Pocket</h1>
@@ -16,6 +16,8 @@
   <a href="https://github.com/shaobeichen/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/shaobeichen/dsh-pocket"></a>
   <a href="https://awesome-dsh-plugin.com"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
+
+> **Solium fork**: based on [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) v2.12.0, adding **public project files** — after login open `/pocket-files` on your address to browse, download, or ZIP every DSH project (workspace) from your phone or the internet, reusing the same PIN.
 
 > Put **DeepSeek Harness in your pocket**: one package, one settings tab — scan a QR code and your phone shows exactly what's on your computer screen, live, from anywhere.
 
@@ -110,6 +112,24 @@ The default "quick tunnel" gets a new random URL on every restart. For a **fixed
 4. Click "Enable anywhere" → the public address is now your own hostname and **survives restarts**
 
 Note: in named-tunnel mode the public PIN is **not auto-rotated** (the address is fixed, so the PIN stays the same across restarts) — manage it proactively with a custom PIN. The Tunnel Token is stored locally only (`$DSH_HOME/dsh-pocket/settings.json`, readable by your user only) and is never echoed back in the UI.
+
+### Project files (public)
+
+Beyond live screen mirroring, this fork also brings **every project (workspace) file** in DSH to your phone:
+
+- After login, open `your-address/pocket-files` (same entry for LAN and public; reuses the same PIN / login cookie)
+- Pick a project → browse folders → download a single file; each folder has a "⬇ ZIP" button (streamed, no memory blow-up)
+- On phone widths (<1024px) a floating "📁 项目文件" button appears in the DSH UI
+- The project list comes from `$DSH_HOME/storages/workspace.json` (new projects show up within ~3s)
+
+Settings (`$DSH_HOME/dsh-pocket/settings.json`, restart `dsh web` after editing):
+
+| Key | Default | Description |
+| --- | --- | --- |
+| `fileBrowserEnabled` | `true` | Set to `false` to disable file access |
+| `fileBrowserRoots` | `[]` | Custom folder array to expose (e.g. `["D:\\Work"]`); when non-empty it **replaces** the workspace list |
+
+Security and limits: same PIN / login cookie as mobile access; only paths inside a project root can be read (`..` and symlink escapes are rejected with 400); ZIP skips `.git`, `node_modules`, `.venv`, `build`, etc. by default — add `&all=1` to include everything; a single ZIP over 4GB or 60k entries returns a 413 asking you to download in smaller folders.
 
 ## ⚠️ Security (read first)
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.jpg" alt="DSH Pocket" width="100%">
+  <img src="https://raw.githubusercontent.com/shaobeichen/dsh-pocket/main/docs/banner.jpg" alt="DSH Pocket" width="100%">
 </p>
 
 <h1 align="center">DSH Pocket</h1>
@@ -16,6 +16,8 @@
   <a href="https://github.com/shaobeichen/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/shaobeichen/dsh-pocket"></a>
   <a href="https://awesome-dsh-plugin.com/zh/"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
+
+> **Solium 分支**：基于 [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) v2.12.0，额外加入了「项目文件公网访问」——登录后访问地址下的 `/pocket-files`，即可在手机/公网浏览、下载、打包 DSH 里每个项目（工作区）的文件，复用同一 PIN。
 
 > 把 **DeepSeek Harness 装进你的口袋**：一个包、一个设置页，手机扫二维码就实时看到电脑上的同一个界面——人在外面也能用。
 
@@ -110,6 +112,24 @@ npx @deepseek-ai/dsh web
 4. 点「开启公网访问」→ 公网地址固定为你的域名，**重启不再变化**
 
 注意：命名隧道模式下公网密码**不自动轮换**（地址固定，重启后密码不变），建议配合「自定义密码」主动管理；Tunnel Token 只存本机（`$DSH_HOME/dsh-pocket/settings.json`，仅本机可读），设置页不回显。
+
+### 项目文件（公网）
+
+除了扫码同屏，还能把 DSH 里**每个项目（工作区）的文件**带到手机上（本分支新增）：
+
+- 登录后直接访问 `你的地址/pocket-files`（公网/局域网同一入口，复用同一 PIN / 登录 cookie）
+- 选择项目 → 浏览目录 → 单文件下载；每个目录都有「⬇ 打包 ZIP」按钮（流式打包，不占内存）
+- 手机宽度（<1024px）打开 DSH 界面时，右下角会出现「📁 项目文件」悬浮按钮
+- 项目列表来自 `$DSH_HOME/storages/workspace.json`（新增项目约 3 秒内可见）
+
+设置（`$DSH_HOME/dsh-pocket/settings.json`，改完重启 `dsh web` 生效）：
+
+| 键 | 默认 | 说明 |
+| --- | --- | --- |
+| `fileBrowserEnabled` | `true` | 设为 `false` 关闭文件访问 |
+| `fileBrowserRoots` | `[]` | 自定义要暴露的目录数组（如 `["D:\\Work"]`），非空时**替代**工作区列表 |
+
+安全与限制：复用与手机访问相同的 PIN 和登录 cookie；只能读取项目目录内的路径（`..` 与符号链接逃逸会被拒绝，返回 400）；ZIP 默认跳过 `.git`、`node_modules`、`.venv`、`build` 等目录，`/pocket-files/zip?ws=…&p=…&all=1` 可全部打包；单次 ZIP 超过 4GB 或 6 万个文件会提示改用子目录分批下载。
 
 ## ⚠️ 安全（必读）
 
